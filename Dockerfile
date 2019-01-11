@@ -15,5 +15,6 @@ ENV BACKENDS=self \
 
 EXPOSE 53
 VOLUME /usr/local/lib
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
