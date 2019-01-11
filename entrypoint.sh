@@ -30,4 +30,4 @@ stream {
 
 EOF
 
-supervisord -c /etc/supervisor/supervisord.conf
+supervisord
