@@ -1,8 +1,6 @@
 #! /bin/sh -xe
 
-CONF=/usr/local/lib/udp.tmpl
-
-cat <<EOF > $CONF
+cat <<EOF > /usr/local/lib/udp.tmpl
 stream {
   upstream backends {
 {{with service "$BACKEND"}}
@@ -20,4 +18,4 @@ stream {
 }
 EOF
 
-supervisord
+supervisord -c /etc/supervisor/conf.d/supervisord.conf
