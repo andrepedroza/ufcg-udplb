@@ -1,6 +1,6 @@
-FROM alpine
+FROM nginx:1.15-alpine
 
-RUN apk add --no-cache ca-certificates nginx supervisor
+RUN apk add --no-cache ca-certificates supervisor
 
 ENV RANCHER_GEN_RELEASE=v0.2.0
 
