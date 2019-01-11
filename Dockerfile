@@ -1,0 +1,19 @@
+FROM alpine
+
+RUN apk add --no-cache ca-certificates nginx supervisor
+
+ENV RANCHER_GEN_RELEASE v0.2.0
+
+ADD https://github.com/janeczku/go-rancher-gen/releases/download/${RANCHER_GEN_RELEASE}/rancher-gen-linux-amd64.tar.gz /tmp/rancher-gen.tar.gz
+RUN tar -zxvf /tmp/rancher-gen.tar.gz -C /usr/local/bin && chmod +x /usr/local/bin/rancher-gen
+
+ENV BACKENDS=self \
+    INTERFACE=eth0 \
+    IP_LISTEN= \
+    PORT_BACKEND=53 \
+    PORT_LISTEN=53
+
+EXPOSE 53
+VOLUME /usr/local/lib
+COPY entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
