@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates nginx-mod-stream nginx=1.14 supervisor
+RUN apk add --no-cache ca-certificates nginx-mod-stream nginx supervisor
 
 ENV RANCHER_GEN_RELEASE=v0.2.0
 
