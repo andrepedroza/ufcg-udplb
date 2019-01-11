@@ -2,19 +2,6 @@
 
 CONF=/usr/local/lib/udp.tmpl
 
-SELF_IP=$(ifconfig $INTERFACE | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}')
-if [ "$IP_LISTEN" == self ]; then
-  if [ -z "$SELF_IP" ]; then
-    echo Could not determine IP for interface=$INTERFACE
-    exit 1
-  fi
-  LISTEN=$SELF_IP:$PORT_LISTEN
-elif [ ! -z "$IP_LISTEN" ]; then
-  LISTEN=$LISTEN_IP:$PORT_LISTEN
-else
-  LISTEN=$PORT_LISTEN
-fi
-
 if [ ! -s /usr/local/lib/udp.conf ]; then
   cat <<EOF > $CONF
 stream {
@@ -26,7 +13,7 @@ stream {
 {{end}}
   }
   server {
-    listen $LISTEN udp;
+    listen $PORT_LISTEN udp;
     proxy_pass backends;
     proxy_responses 1;
     error_log stderr;
