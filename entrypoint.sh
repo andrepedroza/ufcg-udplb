@@ -1,15 +1,13 @@
 #! /bin/sh -xe
 
 cat <<EOF > /usr/local/lib/udp.tmpl
-load_module /usr/lib/nginx/modules/ngx_stream_module.so;
-user  nginx;
-worker_processes  1;
-
-error_log  /var/log/nginx/error.log warn;
-pid        /var/run/nginx.pid;
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
 
 events {
-    worker_connections  1024;
+    worker_connections 768;
+    # multi_accept on;
 }
 
 stream {
