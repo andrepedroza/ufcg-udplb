@@ -1,6 +1,6 @@
-FROM nginx:1.15-alpine
+FROM alpine
 
-RUN apk add --no-cache ca-certificates supervisor
+RUN apk add --no-cache ca-certificates nginx=1.15 nginx-mod-stream supervisor
 
 ENV RANCHER_GEN_RELEASE=v0.2.0
 
@@ -16,8 +16,7 @@ ENV BACKEND=main \
     PORT_LISTEN=53
 
 EXPOSE 53
-VOLUME /usr/local/lib
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
